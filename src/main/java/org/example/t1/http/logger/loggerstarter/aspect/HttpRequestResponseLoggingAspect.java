@@ -44,7 +44,6 @@ public class HttpRequestResponseLoggingAspect {
 
         long startTime = System.currentTimeMillis();
         Object result = null;
-        log.info("Advice_Around_Starter -- Start execution method: {}", pjp.getSignature().toShortString());
         try {
             result = pjp.proceed();
         } catch (Throwable e) {
@@ -52,7 +51,6 @@ public class HttpRequestResponseLoggingAspect {
         }
         long endTime = System.currentTimeMillis();
         long executionTime = endTime - startTime;
-        log.info("Advice_Around_Starter -- Stop execution method: {}", pjp.getSignature() + " executed in " + executionTime + " ms");
 
         HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
         ContentCachingResponseWrapper wrappedResponse = new ContentCachingResponseWrapper(response);
@@ -109,7 +107,7 @@ public class HttpRequestResponseLoggingAspect {
         switch (level) {
             case TRACE -> log.trace(message);
             case DEBUG -> log.debug(message);
-            case INFO -> log.info(message);
+            default -> log.info(message);
         }
     }
 
